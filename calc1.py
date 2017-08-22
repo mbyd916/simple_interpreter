@@ -68,8 +68,14 @@ class Interpreter(object):
         # index to point to the next character after the digit,
         # and return the INTEGER token
         if current_char.isdigit():
-            token = Token(INTEGER, int(current_char))
-            self.pos += 1
+            result = 0
+            while pos < n and text[pos].isdigit():
+                result *= 10
+                result += int(text[pos])
+                pos += 1
+                
+            self.pos = pos
+            token = Token(INTEGER, result)
             return token
 
         if current_char == '+':
