@@ -47,11 +47,16 @@ class Interpreter(object):
         apart into tokens. One token at a time.
         """
         text = self.text
+        pos = self.pos
+        n = len(text)
+        while pos < n and text[pos] == ' ':
+            pos += 1
+        self.pos = pos
 
         # is self.pos index past the end of the self.text ?
         # if so, then return EOF token because there is no more
         # input left to convert into tokens
-        if self.pos > len(text) - 1:
+        if self.pos > n - 1:
             return Token(EOF, None)
 
         # get a character at the position self.pos and decide
